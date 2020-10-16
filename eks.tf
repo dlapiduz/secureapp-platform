@@ -2,6 +2,10 @@ locals {
  cluster_name="eks_test"
 }
 
+variable "local_ip" {
+  type = string
+}
+
 resource "aws_eks_cluster" "eks_test" {
   name     = local.cluster_name
   role_arn = aws_iam_role.cluster-role.arn
@@ -14,10 +18,10 @@ resource "aws_eks_cluster" "eks_test" {
 
     endpoint_private_access = true
     endpoint_public_access = true
-    public_access_cidrs = ["<myip>"]
+    public_access_cidrs = [var.local_ip]
   }
 
-  enabled_cluster_log_types = ["api", "audit"]
+  enabled_cluster_log_types = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
 
   encryption_config {
     resources = ["secrets"]

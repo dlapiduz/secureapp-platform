@@ -183,14 +183,10 @@ output "alb_iam_role" {
   value = aws_iam_role.alb_role.arn
 }
 
-# AWS_ACCOUNT_ID=$(aws sts get-caller-identity --region us-east-2 --query "Account" --output text)
-# OIDC_PROVIDER=$(aws eks describe-cluster --region us-east-2 --name eks_test --query "cluster.identity.oidc.issuer" --output text | sed -e "s/^https:\/\///")
-
-
 # kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/aws-alb-ingress-controller/v1.1.8/docs/examples/rbac-role.yaml
 
 # kubectl annotate serviceaccount -n kube-system alb-ingress-controller \
-# eks.amazonaws.com/role-arn=arn:aws:iam::168588927110:role/ALB_Role
+# eks.amazonaws.com/role-arn=<IAM-ROLE>
 
 # kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/aws-alb-ingress-controller/v1.1.8/docs/examples/alb-ingress-controller.yaml
 

@@ -2,8 +2,9 @@ locals {
  cluster_name="eks_test"
 }
 
-variable "local_ip" {
-  type = string
+# Get local ip
+data "http" "myip" {
+  url = "http://ipv4.icanhazip.com"
 }
 
 resource "aws_eks_cluster" "eks_test" {
@@ -18,7 +19,7 @@ resource "aws_eks_cluster" "eks_test" {
 
     endpoint_private_access = true
     endpoint_public_access = true
-    public_access_cidrs = [var.local_ip]
+    public_access_cidrs = ["${chomp(data.http.myip.body)}/32"]
   }
 
   enabled_cluster_log_types = ["api", "audit", "authenticator", "controllerManager", "scheduler"]

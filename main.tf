@@ -28,7 +28,7 @@ resource "aws_subnet" "eks_vpc_subnet_public" {
 
   tags = {
     Name = "Public Subnet"
-    "kubernetes.io/cluster/${var.cluster_name}" = "shared"
+    "kubernetes.io/cluster/${local.cluster_name}" = "shared"
     "kubernetes.io/role/elb" = 1
   }
 }
@@ -42,7 +42,7 @@ resource "aws_subnet" "eks_vpc_subnet_private" {
 
   tags = {
     Name = "Private Subnet"
-    "kubernetes.io/cluster/${var.cluster_name}" = "shared"
+    "kubernetes.io/cluster/${local.cluster_name}" = "shared"
 
   }
 }
